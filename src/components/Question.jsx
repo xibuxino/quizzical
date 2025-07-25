@@ -1,43 +1,48 @@
 export default function Question(props) {
 	return (
-		<div className='question-box'>
-			<h2 className='question'>How would one say goodbye in Spanish?</h2>
-			<div className='answer-box'>
+		<div className='question-box' data-id={props.questionId}>
+			<h2 className='question'>{props.questionText}</h2>
+			<div className='answer-box' onClick={props.selectAnswer}>
 				<button
+					data-id='0'
+					value={props.answer1}
 					className={
-						props.answer === 1
+						props.userAnswerId === 0
 							? 'answer answer-one selected'
 							: 'answer answer-one'
 					}
 					type='button'>
-					Answer
+					{props.questionOption1}
 				</button>
 				<button
+					data-id='1'
 					className={
-						props.answer === 2
+						props.userAnswerId === 1
 							? 'answer answer-one selected'
 							: 'answer answer-one'
 					}
 					type='button'>
-					Answer 2
+					{props.questionOption2}
 				</button>
 				<button
+					data-id='2'
 					className={
-						props.answer === 3
+						props.userAnswerId === 2
 							? 'answer answer-one selected'
 							: 'answer answer-one'
 					}
 					type='button'>
-					Answer 3
+					{props.questionOption3}
 				</button>
 				<button
+					data-id='3'
 					className={
-						props.answer === 4
+						props.userAnswerId === 3
 							? 'answer answer-one selected'
 							: 'answer answer-one'
 					}
 					type='button'>
-					Answer 4
+					{props.questionOption4}
 				</button>
 			</div>
 		</div>

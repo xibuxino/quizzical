@@ -17,7 +17,7 @@ body {
 main {
 	height: 100%;
 	width: 100%;
-	max-width: 700px;
+	max-width: 1000px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -137,13 +137,8 @@ main {
 		border-radius: 12px;
 	}
 }
-.answer:hover,
-.answer:active {
-	color: #f5f7fb;
-	border-color: #3a4479;
-	background-color: #3a4479;
-}
 
+.answer:hover:active,
 .selected {
 	border-color: #d6dbf5;
 	background-color: #d6dbf5;
