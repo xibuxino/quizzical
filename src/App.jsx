@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import Start from './components/Start.jsx';
 import Question from './components/Question.jsx';
-const API_URL = 'https://opentdb.com/api.php?amount=';
+import getQuestions from './api/questions.js';
 
 function App() {
 	const numberOfQuestions = 4;
 
 	// states
+	const [isLoading, setIsLoading] = useState(true);
 	const [userAnswer, setUserAnswer] = useState(
 		Array.from({ length: numberOfQuestions }, () => ({
 			userAnswerId: null,
@@ -15,7 +16,21 @@ function App() {
 	const isAllSelected = userAnswer.every(
 		(answer) => answer.userAnswerId !== null
 	);
-	console.log(isAllSelected);
+
+	useEffect(() => {
+		async function fetchQuestions() {
+			try {
+				const data = getQuestions(numberOfQuestions);
+				console.log(data);
+			} catch (err) {
+				console.log('blad');
+			} finally {
+				setIsLoading(false);
+			}
+		}
+		fetchQuestions();
+	}, []);
+
 	const [questions, setQuestions] = useState([
 		{
 			questionId: 0,
