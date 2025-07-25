@@ -98,8 +98,8 @@ function App() {
 			<img className='bg-svg-item blob-blue' src='src/assets/blue_blob.svg' />
 
 			<main>
-				{/* <Start /> */}
-				{!isLoading && questionFields}
+				<Start />
+				{/* {!isLoading && questionFields} */}
 				{/* {questionFields} */}
 				<button
 					type='button'
