@@ -7,7 +7,7 @@ export default function Start() {
 				and see how much you really know. Ready to prove yourself? Start your
 				first quiz now!
 			</p>
-			<button className='start-button' type='button'>
+			<button className='btn start-btn' type='button'>
 				Start quiz
 			</button>
 		</section>

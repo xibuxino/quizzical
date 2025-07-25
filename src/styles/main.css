@@ -3,19 +3,26 @@
 body {
 	font-family: 'Karla', sans-serif;
 	background-color: #f5f7fb;
+	color: #293264;
 	width: 100dvw;
 }
 #root {
 	height: 100vh;
-	display: flex;
-}
-main {
-	height: 100%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+main {
+	height: 100%;
+	width: 100%;
+	max-width: 700px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 50px;
 }
 
 /* background decor */
@@ -25,6 +32,7 @@ main {
 	height: 100%;
 	overflow: hidden;
 	pointer-events: none;
+	z-index: -10;
 }
 .bg-svg-item {
 	position: absolute;
@@ -39,6 +47,31 @@ main {
 	bottom: -150px;
 }
 
+.btn {
+	font-weight: 600;
+	background-color: #4d5b9e;
+	color: #f5f7fb;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	@media (min-width: 768px) {
+		border-radius: 15px;
+	}
+}
+.btn:hover {
+	background-color: #3a4479;
+}
+
+.btn-check {
+	font-size: 1rem;
+	padding: 10px 20px;
+	margin-top: 20px;
+
+	@media (min-width: 768px) {
+		font-size: 1.5rem;
+	}
+}
+
 /* start */
 
 .start {
@@ -46,10 +79,8 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 50px;
 	gap: 20px;
 	text-align: center;
-	max-width: 700px;
 	color: #293264;
 }
 .start-title {
@@ -58,12 +89,62 @@ main {
 .start-description {
 	font-size: 1.6rem;
 }
-.start-button {
+.start-btn {
 	font-size: 1.6rem;
-	color: #f5f7fb;
-	font-weight: 600;
-	background-color: #4d5b9e;
+
 	padding: 15px 50px;
-	border-radius: 15px;
-	cursor: pointer;
+}
+
+/* quiz */
+
+.question-box {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	border-bottom: 1px solid #dbdef0;
+}
+
+.question {
+	padding-top: 15px;
+	font-size: 1.6rem;
+	@media (min-width: 768px) {
+		font-size: 2.4rem;
+	}
+}
+
+.answer-box {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: 15px 0px 20px 0px;
+	gap: 8px;
+	@media (min-width: 768px) {
+		gap: 15px;
+	}
+}
+.answer {
+	font-size: 1rem;
+	padding: 5px 15px;
+	color: inherit;
+	font-weight: 600;
+	border: 1px solid #4d5b9e;
+	border-radius: 8px;
+	transition: color 0.2s, background-color 0.2s, border 0.2s;
+	@media (min-width: 768px) {
+		font-size: 1.5em;
+		border-radius: 12px;
+	}
+}
+.answer:hover,
+.answer:active {
+	color: #f5f7fb;
+	border-color: #3a4479;
+	background-color: #3a4479;
+}
+
+.selected {
+	border-color: #d6dbf5;
+	background-color: #d6dbf5;
 }
