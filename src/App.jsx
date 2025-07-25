@@ -4,7 +4,7 @@ import Question from './components/Question.jsx';
 import getQuestions from './api/questions.js';
 
 function App() {
-	const numberOfQuestions = 4;
+	const numberOfQuestions = 5;
 
 	// states
 	const [isLoading, setIsLoading] = useState(true);
@@ -66,11 +66,14 @@ function App() {
 		const parentId = Number(e.currentTarget.parentElement.dataset.id);
 		const answerId = Number(e.target.dataset.id);
 		if (e.target.type !== 'button') return;
-		console.log(parentId, answerId);
+
 		setUserAnswer(
-			userAnswer.map((item, index) =>
-				index === parentId ? { userAnswerId: answerId } : item
-			)
+			userAnswer.map((item, index) => {
+				return (
+					// add unclick
+					index === parentId ? { userAnswerId: answerId } : item
+				);
+			})
 		);
 	}
 
@@ -80,7 +83,7 @@ function App() {
 				questionOptions={q.questionOptions}
 				questionText={q.questionText}
 				questionId={index}
-				userAnswerId={userAnswer.userAnswerId}
+				userAnswerId={userAnswer[index].userAnswerId}
 				selectAnswer={selectAnswer}
 			/>
 		);
@@ -88,13 +91,12 @@ function App() {
 	// return
 	return (
 		<>
-			<div className='bg-svg'>
-				<img
-					className='bg-svg-item blob-yellow'
-					src='src/assets/yellow_blob.svg'
-				/>
-				<img className='bg-svg-item blob-blue' src='src/assets/blue_blob.svg' />
-			</div>
+			<img
+				className='bg-svg-item blob-yellow'
+				src='src/assets/yellow_blob.svg'
+			/>
+			<img className='bg-svg-item blob-blue' src='src/assets/blue_blob.svg' />
+
 			<main>
 				{/* <Start /> */}
 				{!isLoading && questionFields}

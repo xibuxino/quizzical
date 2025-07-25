@@ -5,7 +5,7 @@ export default function Question(props) {
 				key={index}
 				data-id={index}
 				value={option}
-				className={props.userAnswerId === index ? 'answer selected' : 'answer'}
+				className={`answer ${props.userAnswerId === index ? 'selected' : ''}`}
 				type='button'>
 				{option}
 			</button>

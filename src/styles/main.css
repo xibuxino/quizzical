@@ -1,42 +1,28 @@
 @import '_reset.css';
 
 body {
+	height: auto;
 	font-family: 'Karla', sans-serif;
 	background-color: #f5f7fb;
 	color: #293264;
-	width: 100dvw;
 }
-#root {
-	height: 100vh;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
+
 main {
-	height: 100%;
-	width: 100%;
 	max-width: 1000px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding: 50px;
+	margin: auto;
 }
 
 /* background decor */
-.bg-svg {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	pointer-events: none;
-	z-index: -10;
-}
+
 .bg-svg-item {
-	position: absolute;
+	position: fixed;
 	scale: 1.5;
+	z-index: -10;
 }
 .blob-yellow {
 	right: -100px;
@@ -44,7 +30,7 @@ main {
 }
 .blob-blue {
 	left: -100px;
-	bottom: -150px;
+	bottom: -100px;
 }
 
 .btn {
@@ -66,7 +52,7 @@ main {
 	font-size: 1rem;
 	padding: 10px 20px;
 	margin-top: 20px;
-
+	width: 200px;
 	@media (min-width: 768px) {
 		font-size: 1.5rem;
 	}
