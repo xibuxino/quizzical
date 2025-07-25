@@ -8,80 +8,65 @@ function App() {
 
 	// states
 	const [isLoading, setIsLoading] = useState(true);
+	const [questions, setQuestions] = useState([]);
 	const [userAnswer, setUserAnswer] = useState(
 		Array.from({ length: numberOfQuestions }, () => ({
 			userAnswerId: null,
 		}))
 	);
+
+	// variables
 	const isAllSelected = userAnswer.every(
 		(answer) => answer.userAnswerId !== null
 	);
-
+	//  effects
 	useEffect(() => {
 		async function fetchQuestions() {
 			try {
-				const data = getQuestions(numberOfQuestions);
-				console.log(data);
+				const data = await getQuestions(numberOfQuestions);
+				setQuestions(convertQuestions(data.results));
 			} catch (err) {
-				console.log('blad');
+				console.log('error');
 			} finally {
 				setIsLoading(false);
 			}
 		}
 		fetchQuestions();
 	}, []);
+	// functions
+	function decodeHtml(html) {
+		const txt = document.createElement('textarea');
+		txt.innerHTML = html;
+		return txt.value;
+	}
 
-	const [questions, setQuestions] = useState([
-		{
-			questionId: 0,
-			questionAnswerId: 1,
-			questionText: 'Question text1',
-			questionOptions: [
-				'question 1 option 1',
-				'question 1 option 2',
-				'question 1 option 3',
-				'question 1 option 4',
-			],
-		},
-		{
-			questionId: 1,
-			questionAnswerId: 0,
-			questionText: 'Question text2',
-			questionOptions: [
-				'question 2 option 1',
-				'question 2 option 2',
-				'question 2 option 3',
-				'question 2 option 4',
-			],
-		},
-		{
-			questionId: 2,
-			questionAnswerId: 2,
-			questionText: 'Question text3',
-			questionOptions: [
-				'question 3 option 1',
-				'question 3 option 2',
-				'question 3 option 3',
-				'question 3 option 4',
-			],
-		},
-		{
-			questionId: 3,
-			questionAnswerId: 2,
-			questionText: 'Question text4',
-			questionOptions: [
-				'question 4 option 1',
-				'question 4 option 2',
-				'question 4 option 3',
-				'question 4 option 4',
-			],
-		},
-	]);
+	function convertQuestions(results) {
+		function randomAnswerId(length) {
+			return Math.floor(Math.random() * length);
+		}
+		return results.map((item, index) => {
+			const questionAnswerId = randomAnswerId(
+				item.incorrect_answers.length + 1
+			);
+			const questionOptions = [
+				...item.incorrect_answers.slice(0, questionAnswerId).map(decodeHtml),
+				decodeHtml(item.correct_answer),
+				...item.incorrect_answers.slice(questionAnswerId).map(decodeHtml),
+			];
+			return {
+				questionId: index,
+				questionText: decodeHtml(item.question),
+				questionAnswerId: questionAnswerId,
+				questionOptions: questionOptions,
+			};
+		});
+	}
 
 	function selectAnswer(e) {
 		const parentId = Number(e.currentTarget.parentElement.dataset.id);
 		const answerId = Number(e.target.dataset.id);
 		if (e.target.type !== 'button') return;
+		console.log(parentId, answerId);
 		setUserAnswer(
 			userAnswer.map((item, index) =>
 				index === parentId ? { userAnswerId: answerId } : item
@@ -89,8 +74,18 @@ function App() {
 		);
 	}
 
-	const questionFields = questions.map((q, index) => <h1>Test</h1>);
-
+	const questionFields = questions.map((q, index) => {
+		return (
+			<Question
+				questionOptions={q.questionOptions}
+				questionText={q.questionText}
+				questionId={index}
+				userAnswerId={userAnswer.userAnswerId}
+				selectAnswer={selectAnswer}
+			/>
+		);
+	});
+	// return
 	return (
 		<>
 			<div className='bg-svg'>
@@ -102,46 +97,7 @@ function App() {
 			</div>
 			<main>
 				{/* <Start /> */}
-				<Question
-					questionText={questions[0].questionText}
-					questionId={0}
-					questionOption1={questions[0].questionOptions[0]}
-					questionOption2={questions[0].questionOptions[1]}
-					questionOption3={questions[0].questionOptions[2]}
-					questionOption4={questions[0].questionOptions[3]}
-					selectAnswer={selectAnswer}
-					userAnswerId={userAnswer[0].userAnswerId}
-				/>
-				<Question
-					questionText={questions[1].questionText}
-					questionId={1}
-					questionOption1={questions[1].questionOptions[0]}
-					questionOption2={questions[1].questionOptions[1]}
-					questionOption3={questions[1].questionOptions[2]}
-					questionOption4={questions[1].questionOptions[3]}
-					selectAnswer={selectAnswer}
-					userAnswerId={userAnswer[1].userAnswerId}
-				/>
-				<Question
-					questionText={questions[2].questionText}
-					questionOption1={questions[2].questionOptions[0]}
-					questionOption2={questions[2].questionOptions[1]}
-					questionOption3={questions[2].questionOptions[2]}
-					questionOption4={questions[2].questionOptions[3]}
-					questionId={questions[2].questionId}
-					selectAnswer={selectAnswer}
-					userAnswerId={userAnswer[2].userAnswerId}
-				/>
-				<Question
-					questionText={questions[3].questionText}
-					questionOption1={questions[3].questionOptions[0]}
-					questionOption2={questions[3].questionOptions[1]}
-					questionOption3={questions[3].questionOptions[2]}
-					questionOption4={questions[3].questionOptions[3]}
-					questionId={questions[3].questionId}
-					selectAnswer={selectAnswer}
-					userAnswerId={userAnswer[3].userAnswerId}
-				/>
+				{!isLoading && questionFields}
 				{/* {questionFields} */}
 				<button
 					type='button'
