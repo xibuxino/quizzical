@@ -20,26 +20,45 @@ function App() {
 		(question) => question.userAnswerId !== null
 	);
 
-	//  effects
-
-	useEffect(() => {
-		async function fetchQuestions() {
-			try {
-				const data = await getQuestions(
-					userSettings.numberOfQuestions,
-					userSettings.difficulty
+	// functions
+	async function handleStartGame(e) {
+		e.preventDefault();
+		const formData = new FormData(e.target);
+		const amount = formData.get('questions-amount');
+		const difficulty = formData.get('questions-difficulty');
+		setUserSettings({
+			numberOfQuestions: Number(amount),
+			difficulty: difficulty,
+		});
+		setIsRun(true);
+		setIsLoading(true);
+		fetchQuestionsWithRetry(amount, difficulty);
+	}
+	async function fetchQuestionsWithRetry(
+		amount,
+		difficulty,
+		interval = 3000,
+		attempt = 1,
+		maxAttempts = 3
+	) {
+		try {
+			const data = await getQuestions(amount, difficulty);
+			const formatted = convertQuestions(data.results);
+			setQuestions(formatted);
+			setIsLoading(false);
+		} catch (err) {
+			if (attempt < maxAttempts) {
+				setTimeout(
+					() =>
+						fetchQuestionsWithRetry(amount, difficulty, interval, attempt + 1),
+					interval
 				);
-				const formatted = convertQuestions(data.results);
-				setQuestions(formatted);
-			} catch (err) {
-				console.log(err.message, err.stack);
-			} finally {
+			} else {
 				setIsLoading(false);
 			}
 		}
-		fetchQuestions();
-	}, []);
-	// functions
+	}
+
 	function convertQuestions(results) {
 		function randomAnswerId(length) {
 			return Math.floor(Math.random() * length);
@@ -113,10 +132,13 @@ function App() {
 			<img className='bg-svg-item blob-blue' src='src/assets/blue_blob.svg' />
 
 			<main>
-				{/* <Start
-					numberOfQuestions={userSettings.numberOfQuestions}
-					difficulty={userSettings.difficulty}
-				/> */}
+				{!isRun && (
+					<Start
+						numberOfQuestions={userSettings.numberOfQuestions}
+						difficulty={userSettings.difficulty}
+						handleStartGame={handleStartGame}
+					/>
+				)}
 
 				{isLoading && isRun && (
 					<div className='loading'>
@@ -136,7 +158,7 @@ function App() {
 						</svg>
 					</div>
 				)}
-				{!isLoading && questionFields}
+				{!isLoading && isRun && questionFields}
 				{!isLoading && (
 					<button
 						onClick={checkAnswers}

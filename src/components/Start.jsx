@@ -7,11 +7,13 @@ export default function Start(props) {
 				and see how much you really know. Ready to prove yourself? Start your
 				first quiz now!
 			</p>
-			<form className='start-settings'>
+			<form className='start-settings' onSubmit={props.handleStartGame}>
 				<label className='input-label' htmlFor='questions-amount'>
-					Set number of questions:
+					Number of questions:
 				</label>
 				<input
+					defaultValue={props.numberOfQuestions}
+					name='questions-amount'
 					className='input'
 					id='questions-amount'
 					type='number'
@@ -22,20 +24,18 @@ export default function Start(props) {
 					Choose difficulty:
 				</label>
 				<select
+					defaultValue={props.difficulty}
 					className='input'
-					name=' questions-difficulty'
+					name='questions-difficulty'
 					id='questions-difficulty'>
 					<option value='easy'>Easy</option>
-					<option value='medium' selected>
-						Medium
-					</option>
+					<option value='medium'>Medium</option>
 					<option value='hard'>Hard</option>
 				</select>
+				<button className='btn start-btn' type='submit'>
+					Start quiz
+				</button>
 			</form>
-
-			<button className='btn start-btn' type='button'>
-				Start quiz
-			</button>
 		</section>
 	);
 }
