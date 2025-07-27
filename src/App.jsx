@@ -136,6 +136,13 @@ function App() {
 		);
 	}
 
+	function countCorrectAnswers() {
+		const ansNum = questions
+			.map((q) => q.questionAnswerId === q.userAnswerId)
+			.filter(Boolean).length;
+		console.log(ansNum);
+		return ansNum;
+	}
 	function handleNewGame() {
 		setQuestions([]);
 		setIsRun(false);
@@ -180,7 +187,11 @@ function App() {
 						</svg>
 					</div>
 				)}
-				{!isLoading && isRun && questionFields}
+				<div className='question-container'>
+					{' '}
+					{!isLoading && isRun && questionFields}
+				</div>
+
 				{isError && (
 					<h1>
 						Our question bank is temporarily closed! Please refresh and try
@@ -188,16 +199,24 @@ function App() {
 					</h1>
 				)}
 				{!isLoading && (
-					<button
-						disabled={isAllSelected ? false : true}
-						onClick={!isFinished ? checkAnswers : handleNewGame}
-						type='button'
-						className=' btn btn-check'
-						style={{
-							visibility: questions.length !== 0 ? 'visible' : 'hidden',
-						}}>
-						{isFinished ? 'Try again' : 'Check answers'}
-					</button>
+					<div className='score-box'>
+						{isFinished && (
+							<p className='score-text'>
+								You scored {countCorrectAnswers()}/
+								{userSettings.numberOfQuestions} correct answers.
+							</p>
+						)}
+						<button
+							disabled={isAllSelected ? false : true}
+							onClick={!isFinished ? checkAnswers : handleNewGame}
+							type='button'
+							className=' btn btn-check'
+							style={{
+								visibility: questions.length !== 0 ? 'visible' : 'hidden',
+							}}>
+							{isFinished ? 'Play again' : 'Check answers'}
+						</button>
+					</div>
 				)}
 			</main>
 			{isWin && (
