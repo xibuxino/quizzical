@@ -156,9 +156,9 @@ function App() {
 		<>
 			<img
 				className='bg-svg-item blob-yellow'
-				src='src/assets/yellow_blob.svg'
+				src='./src/assets/yellow_blob.svg'
 			/>
-			<img className='bg-svg-item blob-blue' src='src/assets/blue_blob.svg' />
+			<img className='bg-svg-item blob-blue' src='./src/assets/blue_blob.svg' />
 
 			<main>
 				{!isRun && (
