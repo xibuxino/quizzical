@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Start from './components/Start.jsx';
 import Question from './components/Question.jsx';
 import getQuestions from './api/questions.js';
-import { useWindowSize } from 'react';
+
 import Confetti from 'react-confetti';
 
 function App() {
@@ -219,6 +219,7 @@ function App() {
 					</div>
 				)}
 			</main>
+
 			{isWin && (
 				<Confetti
 					numberOfPieces={500}
