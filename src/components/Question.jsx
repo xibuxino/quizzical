@@ -7,11 +7,7 @@ export default function Question(props) {
 				data-id={index}
 				value={option}
 				className={`answer ${
-					props.isFinished &&
-					props.userAnswerId === index &&
-					props.userAnswerId === props.questionAnswerId
-						? 'correct'
-						: ''
+					index === props.questionAnswerId ? 'correct' : ''
 				} ${
 					props.isFinished &&
 					props.userAnswerId === index &&

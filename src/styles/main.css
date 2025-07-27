@@ -41,6 +41,7 @@ main {
 	border-radius: 10px;
 	cursor: pointer;
 	transition: background-color 0.2s;
+	user-select: none;
 	@media (min-width: 768px) {
 		border-radius: 15px;
 	}
@@ -53,11 +54,15 @@ main {
 	font-size: 1.5rem;
 	padding: 10px 20px;
 	margin-top: 20px;
-
 	@media (min-width: 768px) {
 		font-size: 2rem;
 		padding: 15px 30px;
 	}
+}
+
+.btn-check:disabled {
+	pointer-events: none;
+	opacity: 0.5;
 }
 
 /* start */
@@ -155,6 +160,7 @@ main {
 	border: 1px solid #4d5b9e;
 	border-radius: 8px;
 	transition: color 0.2s, background-color 0.2s, border 0.2s;
+	user-select: none;
 	@media (min-width: 768px) {
 		font-size: 1.5em;
 		border-radius: 12px;
@@ -175,6 +181,7 @@ main {
 .incorrect:disabled {
 	background-color: #f8bcbc;
 	border-color: #f8bcbc;
+	opacity: 1;
 }
 
 .answer:hover,

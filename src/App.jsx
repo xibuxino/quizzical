@@ -36,6 +36,7 @@ function App() {
 		setIsLoading(true);
 		fetchQuestionsWithRetry(amount, difficulty);
 	}
+
 	async function fetchQuestionsWithRetry(
 		amount,
 		difficulty,
@@ -47,17 +48,24 @@ function App() {
 			const data = await getQuestions(amount, difficulty);
 			const formatted = convertQuestions(data.results);
 			setQuestions(formatted);
+			setIsError(false);
 			setIsLoading(false);
 		} catch (err) {
 			if (attempt < maxAttempts) {
 				setTimeout(
 					() =>
-						fetchQuestionsWithRetry(amount, difficulty, interval, attempt + 1),
+						fetchQuestionsWithRetry(
+							amount,
+							difficulty,
+							interval,
+							attempt + 1,
+							maxAttempts
+						),
 					interval
 				);
 			} else {
-				setIsLoading(false);
 				setIsError(true);
+				setIsLoading(false);
 			}
 		}
 	}
@@ -128,6 +136,14 @@ function App() {
 		);
 	}
 
+	function handleNewGame() {
+		setQuestions([]);
+		setIsRun(false);
+		setIsFinished(false);
+		setIsWin(false);
+		setIsError(false);
+	}
+
 	// return
 	return (
 		<>
@@ -173,14 +189,14 @@ function App() {
 				)}
 				{!isLoading && (
 					<button
-						onClick={checkAnswers}
+						disabled={isAllSelected ? false : true}
+						onClick={!isFinished ? checkAnswers : handleNewGame}
 						type='button'
 						className=' btn btn-check'
 						style={{
-							visibility:
-								questions.length !== 0 && isAllSelected ? 'visible' : 'hidden',
+							visibility: questions.length !== 0 ? 'visible' : 'hidden',
 						}}>
-						Check answers
+						{isFinished ? 'Try again' : 'Check answers'}
 					</button>
 				)}
 			</main>
