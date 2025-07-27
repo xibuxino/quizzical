@@ -14,8 +14,11 @@ export default function Question(props) {
 
 	return (
 		<div className='question-box' data-id={props.questionId}>
-			<h2 className='question'>{props.questionText}</h2>
-			<div className='answer-box' onClick={props.selectAnswer}>
+			<h2 className='question'>
+				<span className='question-number'>{props.questionId + 1}</span>
+				<span className='question-text'>{props.questionText}</span>
+			</h2>
+			<div className='answer-box' onClick={props.setAnswer}>
 				{buttons}
 			</div>
 		</div>

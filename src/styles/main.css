@@ -78,8 +78,27 @@ main {
 }
 .start-btn {
 	font-size: 1.6rem;
-
 	padding: 15px 50px;
+}
+
+.start-settings {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+.input-label {
+	font-size: 2rem;
+}
+.input {
+	font-size: 1.8rem;
+	width: 100px;
+	height: 40px;
+	background: none;
+	text-align: center;
+	border: 1px solid #3a4479;
+	border-radius: 10px;
 }
 
 /* quiz */
@@ -92,15 +111,27 @@ main {
 	justify-content: center;
 	border-bottom: 1px solid #dbdef0;
 }
-
 .question {
 	padding-top: 15px;
+}
+.question-text {
 	font-size: 1.6rem;
 	@media (min-width: 768px) {
 		font-size: 2.4rem;
 	}
 }
+.question-number {
+	font-size: 2rem;
+	margin-right: 5px;
+	@media (min-width: 768px) {
+		font-size: 3rem;
+		margin-right: 10px;
+	}
+}
 
+.question-number::after {
+	content: '.';
+}
 .answer-box {
 	display: flex;
 	flex-direction: row;
@@ -129,4 +160,23 @@ main {
 .selected {
 	border-color: #d6dbf5;
 	background-color: #d6dbf5;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.spinner {
+	margin-inline: auto;
+	margin-top: 10px;
+	animation: spin 2s linear infinite;
+}
+
+.loading-text {
+	text-align: center;
 }
