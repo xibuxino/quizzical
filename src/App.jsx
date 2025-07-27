@@ -15,6 +15,8 @@ function App() {
 		difficulty: 'easy',
 	});
 	const [isWin, setIsWin] = useState(false);
+	const [isFinished, setIsFinished] = useState(false);
+	const [isError, setIsError] = useState(false);
 	// variables
 	const isAllSelected = questions.every(
 		(question) => question.userAnswerId !== null
@@ -55,6 +57,7 @@ function App() {
 				);
 			} else {
 				setIsLoading(false);
+				setIsError(true);
 			}
 		}
 	}
@@ -109,12 +112,15 @@ function App() {
 				questionText={q.questionText}
 				questionId={q.questionId}
 				userAnswerId={q.userAnswerId}
+				questionAnswerId={q.questionAnswerId}
 				setAnswer={setAnswer}
+				isFinished={isFinished}
 			/>
 		);
 	});
 
 	function checkAnswers() {
+		setIsFinished(true);
 		setIsWin(
 			questions.every(
 				(question) => question.questionAnswerId === question.userAnswerId
@@ -159,6 +165,12 @@ function App() {
 					</div>
 				)}
 				{!isLoading && isRun && questionFields}
+				{isError && (
+					<h1>
+						Our question bank is temporarily closed! Please refresh and try
+						again.
+					</h1>
+				)}
 				{!isLoading && (
 					<button
 						onClick={checkAnswers}
