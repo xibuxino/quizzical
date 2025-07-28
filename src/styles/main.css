@@ -1,4 +1,4 @@
-@import './src/styles/_reset.css';
+@import '_reset.css';
 
 body {
 	height: auto;
