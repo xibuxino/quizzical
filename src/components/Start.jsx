@@ -1,4 +1,4 @@
-export const Start = (props) => {
+export const Start = ({ numberOfQuestions, difficulty, handleStartGame }) => {
 	return (
 		<section className='start'>
 			<h1 className='start-title'>Quizzical</h1>
@@ -7,12 +7,12 @@ export const Start = (props) => {
 				and see how much you really know. Ready to prove yourself? Start your
 				first quiz now!
 			</p>
-			<form className='start-settings' onSubmit={props.handleStartGame}>
+			<form className='start-settings' onSubmit={handleStartGame}>
 				<label className='input-label' htmlFor='questions-amount'>
 					Number of questions:
 				</label>
 				<input
-					defaultValue={props.numberOfQuestions}
+					defaultValue={numberOfQuestions}
 					name='questions-amount'
 					className='input'
 					id='questions-amount'
@@ -24,7 +24,7 @@ export const Start = (props) => {
 					Choose difficulty:
 				</label>
 				<select
-					defaultValue={props.difficulty}
+					defaultValue={difficulty}
 					className='input'
 					name='questions-difficulty'
 					id='questions-difficulty'>

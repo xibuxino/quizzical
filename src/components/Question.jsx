@@ -1,35 +1,33 @@
-export const Question = (props) => {
-	const buttons = props.questionOptions.map((option, index) => {
+import { QuestionOption } from './QuestionOption';
+import { QuestionText } from './QuestionText';
+
+export const Question = ({
+	questionOptions,
+	isFinished,
+	questionAnswerId,
+	userAnswerId,
+	questionText,
+	setAnswer,
+	questionId,
+}) => {
+	const options = questionOptions.map((option, index) => {
 		return (
-			<button
-				disabled={props.isFinished}
+			<QuestionOption
 				key={index}
-				data-id={index}
-				value={option}
-				className={`answer ${
-					index === props.questionAnswerId ? 'correct' : ''
-				} ${
-					props.isFinished &&
-					props.userAnswerId === index &&
-					props.userAnswerId !== props.questionAnswerId
-						? 'incorrect'
-						: ''
-				}
-				${props.userAnswerId === index ? 'selected' : ''}`}
-				type='button'>
-				{option}
-			</button>
+				isFinished={isFinished}
+				index={index}
+				option={option}
+				questionAnswerId={questionAnswerId}
+				userAnswerId={userAnswerId}
+			/>
 		);
 	});
 
 	return (
-		<div className='question-box' data-id={props.questionId}>
-			<h2 className='question'>
-				<span className='question-number'>{props.questionId + 1}</span>
-				<span className='question-text'>{props.questionText}</span>
-			</h2>
-			<div className='answer-box' onClick={props.setAnswer}>
-				{buttons}
+		<div className='question-box' data-id={questionId}>
+			<QuestionText questionId={questionId} questionText={questionText} />
+			<div className='answer-box' onClick={setAnswer}>
+				{options}
 			</div>
 		</div>
 	);
