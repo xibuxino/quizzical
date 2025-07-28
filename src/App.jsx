@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Start } from './components/Start.jsx';
 import { Question } from './components/Question.jsx';
 import Confetti from 'react-confetti';
-import { triviaRequest, convertQuestions } from './utils';
+import { triviaRequest, convertQuestions, countCorrectAnswers } from './utils';
 function App() {
 	// states
 	const [questions, setQuestions] = useState([]);
@@ -105,13 +105,6 @@ function App() {
 		);
 	}
 
-	function countCorrectAnswers() {
-		const ansNum = questions
-			.map((q) => q.questionAnswerId === q.userAnswerId)
-			.filter(Boolean).length;
-		console.log(ansNum);
-		return ansNum;
-	}
 	function handleNewGame() {
 		setQuestions([]);
 		setIsRun(false);
@@ -171,7 +164,7 @@ function App() {
 					<div className='score-box'>
 						{isFinished && (
 							<p className='score-text'>
-								You scored {countCorrectAnswers()}/
+								You scored {countCorrectAnswers(questions)}/
 								{userSettings.numberOfQuestions} correct answers.
 							</p>
 						)}
