@@ -1,4 +1,4 @@
-export default function Question(props) {
+export const Question = (props) => {
 	const buttons = props.questionOptions.map((option, index) => {
 		return (
 			<button
@@ -33,4 +33,4 @@ export default function Question(props) {
 			</div>
 		</div>
 	);
-}
+};

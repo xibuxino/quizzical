@@ -1,4 +1,4 @@
-export default function Start(props) {
+export const Start = (props) => {
 	return (
 		<section className='start'>
 			<h1 className='start-title'>Quizzical</h1>
@@ -38,4 +38,4 @@ export default function Start(props) {
 			</form>
 		</section>
 	);
-}
+};

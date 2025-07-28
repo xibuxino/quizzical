@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import Start from './components/Start.jsx';
-import Question from './components/Question.jsx';
+import { Start } from './components/Start.jsx';
+import { Question } from './components/Question.jsx';
 import getQuestions from './api/questions.js';
-
 import Confetti from 'react-confetti';
 
 function App() {

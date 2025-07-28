@@ -1,4 +1,4 @@
-export default function Option(props) {
+export const Option = (props) => {
 	return (
 		<button
 			data-id={props.id}
@@ -11,4 +11,4 @@ export default function Option(props) {
 			{props.questionOption}
 		</button>
 	);
-}
+};
