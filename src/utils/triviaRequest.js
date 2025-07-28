@@ -1,6 +1,6 @@
 const API_URL = 'https://opentdb.com/api.php?amount=';
 
-export default async function getQuestions(num, diff) {
+export const triviaRequest = async (num, diff) => {
 	const response = await fetch(
 		`https://opentdb.com/api.php?amount=${num}&category=9&difficulty=${diff}&type=multiple`
 	);
@@ -8,4 +8,4 @@ export default async function getQuestions(num, diff) {
 	const data = await response.json();
 
 	return data;
-}
+};

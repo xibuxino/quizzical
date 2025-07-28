@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Start } from './components/Start.jsx';
 import { Question } from './components/Question.jsx';
-import getQuestions from './api/questions.js';
 import Confetti from 'react-confetti';
-
+import { triviaRequest, convertQuestions } from './utils';
 function App() {
 	// states
 	const [questions, setQuestions] = useState([]);
@@ -44,7 +43,7 @@ function App() {
 		maxAttempts = 3
 	) {
 		try {
-			const data = await getQuestions(amount, difficulty);
+			const data = await triviaRequest(amount, difficulty);
 			const formatted = convertQuestions(data.results);
 			setQuestions(formatted);
 			setIsError(false);
@@ -67,35 +66,6 @@ function App() {
 				setIsLoading(false);
 			}
 		}
-	}
-
-	function convertQuestions(results) {
-		function randomAnswerId(length) {
-			return Math.floor(Math.random() * length);
-		}
-		return results.map((item, index) => {
-			const questionAnswerId = randomAnswerId(
-				item.incorrect_answers.length + 1
-			);
-			const questionOptions = [
-				...item.incorrect_answers.slice(0, questionAnswerId).map(decodeHtml),
-				decodeHtml(item.correct_answer),
-				...item.incorrect_answers.slice(questionAnswerId).map(decodeHtml),
-			];
-			return {
-				questionId: index,
-				questionText: decodeHtml(item.question),
-				questionAnswerId: questionAnswerId,
-				questionOptions: questionOptions,
-				userAnswerId: null,
-			};
-		});
-	}
-
-	function decodeHtml(html) {
-		const txt = document.createElement('textarea');
-		txt.innerHTML = html;
-		return txt.value;
 	}
 
 	function setAnswer(e) {
