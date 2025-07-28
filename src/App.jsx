@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Start } from './components/Start.jsx';
 import { Question } from './components/Question.jsx';
 import Confetti from 'react-confetti';
+import { yellowBlob, blueBlob } from './assets';
 import { triviaRequest, convertQuestions, countCorrectAnswers } from './utils';
 function App() {
 	// states
@@ -116,8 +117,8 @@ function App() {
 	// return
 	return (
 		<>
-			<img className='bg-svg-item blob-yellow' src='./yellow_blob.svg' />
-			<img className='bg-svg-item blob-blue' src='./blue_blob.svg' />
+			<img className='bg-svg-item blob-yellow' src={yellowBlob} />
+			<img className='bg-svg-item blob-blue' src={blueBlob} />
 
 			<main>
 				{!isRun && (
